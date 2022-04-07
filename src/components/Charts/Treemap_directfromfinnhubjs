@@ -1,0 +1,142 @@
+import React, { useEffect, useState } from "react";
+import loadingImage from '../../images/preloader.gif';
+import Chart from 'chart.js/auto';
+import axios from "axios";
+import { color } from 'chart.js/helpers';
+import {TreemapController, TreemapElement} from 'chartjs-chart-treemap';
+
+
+let myChart2;  
+
+Chart.register(TreemapController, TreemapElement);
+function colorFromRaw(ctx) {
+    if (ctx.type !== 'data') {
+      return 'transparent';
+    }
+    const value = ctx.raw.v;
+    let alpha = (1 + Math.log(value)) / 5;
+    const color2 = 'green';
+    const c2 = color('green')
+    return c2
+      .alpha(alpha)
+      .rgbString();
+  }
+
+const Treemap = (stockName) => {
+
+    const [timeseries2, setTimeseries2] = useState(0);
+
+    React.useEffect(() => {
+        console.log(stockName.stockName)
+        let isCancelled = false;
+
+        let nasdaq100=["AMD","ADBE","ABNB","ALGN","AMZN","AMGN","AEP","ADI","ANSS","AAPL","AMAT","ASML","TEAM","ADSK","ATVI","ADP","AZN","AVGO","BIDU","BIIB","BMRN","BKNG","CDNS","CHTR","CPRT","CRWD","CTAS","CSCO","CMCSA","COST","CSX","CTSH","DDOG","DOCU","DXCM","DLTR","EA","EBAY","EXC","FAST","FB","FISV","FTNT","GILD","GOOG","GOOGL","HON","ILMN","INTC","INTU","ISRG","MRVL","IDXX","JD","KDP","KLAC","KHC","LRCX","LCID","LULU","MELI","MAR","MTCH","MCHP","MDLZ","MRNA","MNST","MSFT","MU","NFLX","NTES","NVDA","NXPI","OKTA","ODFL","ORLY","PCAR","PANW","PAYX","PDD","PYPL","PEP","QCOM","REGN","ROST","SIRI","SGEN","SPLK","SWKS","SBUX","SNPS","TSLA","TXN","TMUS","VRSN","VRSK","VRTX","WBA","WDAY","XEL","ZM","ZS"]
+
+        
+    
+        const fetchData3 = async () => {
+            
+            setTimeseries2({data: ''});
+            const tickerResults=[]
+
+            let promises = [];
+            for (var i = 0; i<20; i++) {
+                promises.push(
+                    axios.get("https://appvis.co/api?ticker="+nasdaq100[i])
+                .then(response => {
+                    tickerResults.push(response)
+                    })
+                )
+            }
+
+            Promise.all(promises).then(() => {
+                console.log('all done');
+                console.log(JSON.stringify(tickerResults));
+            });
+
+            // for(var i=0; i<nasdaq100.length-95; i++){
+            //     console.log(nasdaq100[i]);
+            //     const resp3 =  await axios.get("https://appvis.co/api?ticker="+nasdaq100[i]);
+            //     tickerResults.push(resp3)
+            // }
+
+            console.log(tickerResults.toString());
+            
+            if (!isCancelled) {
+                setTimeseries2({data: 'yes'});
+            }
+            //console.log(resp3.data);
+       
+
+            //console.log(JSON.stringify(data, null, 2) );
+            // const temp=[]
+            // const appended=[]
+            // const labels=[]
+            // for(var i = 0; i < resp3.length; i++) {
+            //     labels.append( resp3[i][0] )
+            // }
+           
+            //daysArray[i].toString().slice(1,10)
+            //console.log(data.h);
+
+            
+            const ctx2 = document.getElementById('myChartTreemap');
+        
+            if (typeof myChart2 !== "undefined") myChart2.destroy();
+
+            
+            myChart2 = new Chart(ctx2, {
+            type: 'treemap',
+            data: {
+                datasets: [
+                {
+                    label: 'My treemap dataset',
+                    tree: [5, 6, 6, 5, 4, 3, 2, 2],
+                    borderColor: 'green',
+                    borderWidth: 1,
+                    spacing: 0,
+                    backgroundColor: (ctx) => colorFromRaw(ctx),
+                }
+                ],
+            },
+            options: {
+                plugins: {
+                title: {
+                    display: true,
+                    text: 'My treemap chart'
+                },
+                legend: {
+                    display: false
+                }
+                }
+            }
+            });
+
+
+
+        };
+        fetchData3();
+        return () => {
+            isCancelled = true;
+        };
+        
+        
+    }, [stockName])
+
+    return (
+        <div>
+        {timeseries2.data? (
+           <canvas id="myChartTreemap" width="400" height="400"></canvas>
+
+        
+        ) : (
+         
+           <img src={loadingImage} className='loading-img' alt='loding' />
+        )}
+      </div>
+        
+    )
+
+}
+  
+export default Treemap;
