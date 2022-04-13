@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { GithubProvider } from './context/context';
 import { Auth0Provider } from '@auth0/auth0-react';
-
+import "./bootstrap.min.css";
 ReactDOM.render(
   <React.StrictMode>
   

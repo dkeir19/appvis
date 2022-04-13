@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Card from './Card';
 import Followers from './Followers';
 import Stockinfo from './Stockinfo';
+import SavedStocks from './SavedStocks'
 import { Treemap } from './Charts'
 import { GithubContext } from '../context/context';
 import { Stock2 } from './Charts';
@@ -16,7 +17,7 @@ const User = () => {
         <Stockinfo></Stockinfo>
         <Treemap stockName={currentStockName}/>
         
-        
+        <SavedStocks/>
         
         <Stock2 stockName={currentStockName}/>
         {/* <Followers></Followers> */}
@@ -31,7 +32,7 @@ const Wrapper = styled.div`
   gap: 3rem 2rem;
   @media (min-width: 992px) {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
   }
   /* align-items: start; */
 `;

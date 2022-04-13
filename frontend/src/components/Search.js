@@ -11,10 +11,9 @@ const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user) {
-      // more logic coming up soon
+     
       searchStock(user);
-      //optional
-      // setUser('');
+      
     }
   };
   return (

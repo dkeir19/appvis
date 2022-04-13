@@ -29,9 +29,22 @@ const GithubProvider = ({ children }) => {
   const [stockNews, setStockNews] = useState(0);
 
   const [marketNews, setMarketNews] = useState(0)
+  const [loggedUser, setLoggedUser] = useState(0)
+  const [loginError, setLoginError] = useState('')
 
+  const state =  [ ['AAPL', 'APPLE INC', 'https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png'], ['NVDA', 'NVIDIA CORP', 'https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NVDA.png']  ];
+
+  const [watchStocks, setWatchStocks] = useState( state  );
 
   const searchStock = async (stock) => {
+
+    const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
+    if(userInfoFromStorage !== null) {
+      setLoggedUser(userInfoFromStorage)
+    }
  
     
     const finnhub = require('finnhub');
@@ -131,6 +144,57 @@ const GithubProvider = ({ children }) => {
 
   }
 
+  const logout = () => {
+    localStorage.removeItem("userInfo");
+    setLoggedUser(0);
+  }
+
+  const login = async (email, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/users/login",
+        { email, password },
+        config
+      );
+
+      setLoggedUser(data)
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      error.response && error.response.data.message
+      ? setLoginError(error.response.data.message)
+      : setLoginError(error.message)
+    }
+  }
+
+  const registerUser = async (name, email, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+ 
+      const { data } = await axios.post(
+        "/api/users",
+        { name, email, password },
+        config
+      );
+  
+     
+      setLoggedUser(data)
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+     
+    }
+  };
+
 
   const searchGithubUser = async (user) => {
     toggleError();
@@ -202,6 +266,12 @@ const GithubProvider = ({ children }) => {
         error,
         searchStock,
         searchGithubUser,
+        loggedUser,
+        login,
+        loginError,
+        registerUser,
+        logout,
+        watchStocks,
         stockInfo,
         stockNews,
         marketNews,
