@@ -26,6 +26,8 @@ const SavedStocks = () => {
 };
 
 const Wrapper = styled.article`
+  grid-row-start: 1;
+  grid-row-end: 2;
   background: var(--clr-white);
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);

@@ -15,9 +15,10 @@ const User = () => {
       <Wrapper className='section-center'>
      
         <Stockinfo></Stockinfo>
+        <SavedStocks/>
         <Treemap stockName={currentStockName}/>
         
-        <SavedStocks/>
+        
         
         <Stock2 stockName={currentStockName}/>
         {/* <Followers></Followers> */}
@@ -29,10 +30,10 @@ const User = () => {
 const Wrapper = styled.div`
   padding-top: 2rem;
   display: grid;
-  gap: 3rem 2rem;
+  gap: 0.5rem 0.5rem;
   @media (min-width: 992px) {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    
   }
   /* align-items: start; */
 `;

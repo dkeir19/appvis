@@ -66,7 +66,7 @@ const Navbar = () => {
       </Button>
       
 
-    
+        { registerPath ? (
           
    
           <Modal  show={show} onHide={handleClose}>
@@ -74,8 +74,6 @@ const Navbar = () => {
             <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-
-              {registerPath ? (
   
             <Row className="justify-content-md-center">
           <Col xs={12} md={6}>
@@ -105,21 +103,13 @@ const Navbar = () => {
               Sign in
             </Button>
           </Form>
-           New user?{" "}
-               <a onClick={(event) => {  setRegisterPath(false); event.preventDefault();   } } className="menu-item--small" href="">Register</a>
-         
+          
           </Col>
       </Row>
      
-            
-
-              ) :
-              (
-                <RegisterScreenModal/>
-            
-              )
-              }
-
+              New user?{" "}
+              <a onClick={() => {  setRegisterPath(false)  } } className="menu-item--small" href="">Register</a>
+         
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -131,14 +121,28 @@ const Navbar = () => {
           </Modal.Footer> 
           </Modal>
 
-        ) 
-         
+        ) :
+        ( 
+          <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
   
-         
+          <RegisterScreenModal/>
   
-      
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer> 
+          </Modal>
        
-        
+        )}
       
       <Burger/>
     

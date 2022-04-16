@@ -6,7 +6,7 @@ const Marketnews = () => {
   const { marketNews } = React.useContext(GithubContext);
 
   return (
-    <section className='section'>
+    <section className='section' id='market-news'>
     <Wrapper className='section-center'>
         {marketNews != 0 ? marketNews.slice(0,2).map((news, index) => {
           // const { avatar_url: img, html_url, login } = follower;
