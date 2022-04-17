@@ -7,12 +7,15 @@ class Burger extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      menuOpen: false
+      menuOpen: false,
     }
     this.closeMenu = this.closeMenu.bind(this);
     this.showSettings = this.showSettings.bind(this);
-  }
+    this.toggleLogin = this.toggleLogin.bind(this);
+    this.toggleRegister = this.toggleRegister.bind(this);
 
+    
+  }
   handleStateChange (state) {
     this.setState({menuOpen: state.isOpen})  
   }
@@ -32,17 +35,37 @@ class Burger extends React.Component {
     element.scrollIntoView();
   }
 
-  render () {
+  toggleLogin (event) {
+    event.preventDefault(); 
+    this.closeMenu();
+    this.props.handleShow();
+    console.log('blahblah');
+  }
 
+  toggleRegister (event) {
+    event.preventDefault(); 
+    this.closeMenu();
+    this.props.handleRegister();
+    this.props.handleShow();
+    console.log('blahblah2');
+  }
+
+
+
+  render () {
+    
     return (
       <Wrapper>
       <Menu 
+          onClose={ this.handleOnClose }
           isOpen={this.state.menuOpen}
           onStateChange={(state) => this.handleStateChange(state)}
         >
         <a id="contact" className="menu-item" href="#market-news" onClick={ this.showSettings }>Market news</a>
-        <a onClick={ this.showSettings } className="menu-item--small" href="">Sign in</a>
-        <a onClick={ this.showSettings } className="menu-item--small" href="">Register</a>
+        {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Sign in</a> */}
+        <a onClick={ this.toggleLogin } className="menu-item--small" href="">Sign in</a>
+       
+        <a onClick={ this.toggleRegister } className="menu-item--small" href="">Register</a>
       </Menu>
       </Wrapper>
     );

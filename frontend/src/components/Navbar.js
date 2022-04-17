@@ -41,9 +41,9 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [registerPath, setRegisterPath] = useState(true);
-
+  const handleRegister = () => setRegisterPath(false);
+  let props = {handleShow, handleRegister};
 
   return (
    <div>
@@ -61,9 +61,9 @@ const Navbar = () => {
     ) :
     (
       <Container>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-      </Button>
+      </Button> */}
       
 
     
@@ -131,7 +131,7 @@ const Navbar = () => {
           </Modal.Footer> 
           </Modal>
 
-        ) 
+         
          
   
          
@@ -140,7 +140,7 @@ const Navbar = () => {
        
         
       
-      <Burger/>
+      <Burger {...props} />
     
     </Container>
     )}
