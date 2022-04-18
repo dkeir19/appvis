@@ -35,7 +35,7 @@ const Wrapper = styled.article`
   position: relative;
 
   &::before {
-    content: ' My stocks';
+    content: 'My watch list';
     position: absolute;
     top: 0;
     left: 0;

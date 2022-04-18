@@ -103,4 +103,37 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, getUserProfile, updateUserProfile };
+// @desc add stock to watchlist
+// @route POST /api/watchlist
+// @access Private
+const watchList = asyncHandler(async (req, res) => {
+  console.log('in watchlist');
+  console.log(req.body.loggedUser._id)
+  const user = await User.findById(req.body.loggedUser._id);
+  const ticker = req.body.ticker;
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    console.log(user.savedStocks);
+    user.savedStocks.push(ticker);
+    console.log(user.savedStocks);
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      savedStocks: updatedUser.savedStocks,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+export { authUser, registerUser, getUserProfile, updateUserProfile, watchList };

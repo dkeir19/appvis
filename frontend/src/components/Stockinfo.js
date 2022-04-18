@@ -3,7 +3,7 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink, MdInsertChart, MdAttachMoney } from 'react-icons/md';
 const Stockinfo = () => {
-  const { stockInfo, stockNews  } = React.useContext(GithubContext);
+  const { stockInfo, stockNews, addToWatch  } = React.useContext(GithubContext);
   const {
     weburl,
     name,
@@ -17,15 +17,24 @@ const Stockinfo = () => {
   //const {a} = stockNews;
   console.log(JSON.stringify(stockNews, null, 2) );
   
+  const handleAddWatch = (e) => {
+    e.preventDefault();
+    console.log('in handleaddwatch');
+    addToWatch(ticker);
+  };
 
   return (
     <Wrapper>
       <header>
+        
         <img src={logo} alt={name} />
+       
         <div>
           <h4>{name}</h4>
           {/* <p>@{twitter_username || 'john doe'}</p> */}
         </div>
+
+        <a onClick={(e) => { handleAddWatch(e,ticker); } } className="menu-item--small" href="">Add to my watch list</a>
         {/* <a href={html_url}>follow</a> */}
       </header>
       <p className='bio'></p>
@@ -78,7 +87,7 @@ const Wrapper = styled.article`
     content: 'Stock';
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0;  
     transform: translateY(-100%);
     background: var(--clr-white);
     color: var(--clr-grey-5);

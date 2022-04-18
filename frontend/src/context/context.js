@@ -35,6 +35,43 @@ const GithubProvider = ({ children }) => {
   const state =  [ ['AAPL', 'APPLE INC', 'https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png'], ['NVDA', 'NVIDIA CORP', 'https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NVDA.png']  ];
 
   const [watchStocks, setWatchStocks] = useState( state  );
+  const [watchStocks2, setWatchStocks2] = useState( 0  );
+
+
+  const getCompanyProfile = async (stocks) => {
+    const finnhub = require('finnhub');
+    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+    api_key.apiKey = "c8cjreaad3i9nv0coua0";
+    const finnhubClient = new finnhub.DefaultApi();
+
+    // get stockinfo
+    let stockDetails = [];
+
+    stocks.forEach(function (item, index) {
+
+      finnhubClient.companyProfile2({'symbol': item}, (error, data, response) => {
+        if (error || 
+          
+          ( data // 👈 null and undefined check
+          && Object.keys(data).length === 0)
+                    
+          ) {
+        
+          toggleError(true, 'there is no listed company with that name');
+        } else {
+          console.log(JSON.stringify(data, null, 2) );
+          stockDetails.push(data);
+        }
+      });
+
+    });
+  
+    setWatchStocks2(stockDetails);
+
+  }
+
+
+  
 
   const searchStock = async (stock) => {
 
@@ -195,6 +232,34 @@ const GithubProvider = ({ children }) => {
     }
   };
 
+  const addToWatch = async (ticker, user) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+ 
+      const { data } = await axios.post(
+        "/api/users/watchlist",
+        { ticker, loggedUser},
+        config
+      );
+  
+     
+      setLoggedUser(data)
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      // bring back stock summary from finnhub
+      getCompanyProfile(data.savedStocks);
+
+
+    } catch (error) {
+     
+    }
+  };
+
 
   const searchGithubUser = async (user) => {
     toggleError();
@@ -278,6 +343,7 @@ const GithubProvider = ({ children }) => {
         isLoading,
         currentStock,
         currentStockName,
+        addToWatch,
       }}
     >
       {children}
