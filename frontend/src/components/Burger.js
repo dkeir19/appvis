@@ -1,8 +1,12 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu'
 import styled from 'styled-components';
+import { GithubContext } from '../context/context';
+import { Nav} from "react-bootstrap";
 
 class Burger extends React.Component {
+
+  static contextType = GithubContext
 
   constructor (props) {
     super(props)
@@ -13,7 +17,7 @@ class Burger extends React.Component {
     this.showSettings = this.showSettings.bind(this);
     this.toggleLogin = this.toggleLogin.bind(this);
     this.toggleRegister = this.toggleRegister.bind(this);
-
+    this.logoutHandler = this.logoutHandler.bind(this);
     
   }
   handleStateChange (state) {
@@ -50,9 +54,15 @@ class Burger extends React.Component {
     console.log('blahblah2');
   }
 
+  logoutHandler () {
+    //e.preventDefault();
+    this.context.logout();
+  }
+  
 
 
   render () {
+    const { loggedUser, logout } =this.context;
     
     return (
       <Wrapper>
@@ -62,10 +72,18 @@ class Burger extends React.Component {
           onStateChange={(state) => this.handleStateChange(state)}
         >
         <a id="contact" className="menu-item" href="#market-news" onClick={ this.showSettings }>Market news</a>
-        {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Sign in</a> */}
-        <a onClick={ this.toggleLogin } className="menu-item--small" href="">Sign in</a>
-       
-        <a onClick={ this.toggleRegister } className="menu-item--small" href="">Register</a>
+
+        {!loggedUser ? (
+        <ul>
+          <li><a onClick={ this.toggleLogin } className="menu-item--small" href="">Sign in</a></li>
+        
+          <li><a onClick={ this.toggleRegister } className="menu-item--small" href="">Register</a></li>
+   
+        </ul>
+         ) :
+        (
+          <Nav.Link onClick={this.logoutHandler}>Logout</Nav.Link>
+        ) }
       </Menu>
       </Wrapper>
     );

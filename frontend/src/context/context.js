@@ -45,29 +45,48 @@ const GithubProvider = ({ children }) => {
     const finnhubClient = new finnhub.DefaultApi();
 
     // get stockinfo
-    let stockDetails = [];
+    const stockDetails = [];
 
-    stocks.forEach(function (item, index) {
+    const thestocks = stocks.map( item => {
 
-      finnhubClient.companyProfile2({'symbol': item}, (error, data, response) => {
-        if (error || 
-          
-          ( data // 👈 null and undefined check
-          && Object.keys(data).length === 0)
-                    
-          ) {
-        
-          toggleError(true, 'there is no listed company with that name');
-        } else {
-          console.log(JSON.stringify(data, null, 2) );
-          stockDetails.push(data);
+        let finnhubpromise = function(item) {
+          return new Promise((resolve, reject) => {
+            finnhubClient.companyProfile2({'symbol': item}, (error, data, response) => {
+                  if (error ||      
+                    ( data // 👈 null and undefined check
+                    && Object.keys(data).length === 0)
+                              
+                    ) {
+
+                    toggleError(true, 'there is no listed company with that name');
+                  } else {
+                    //console.log(JSON.stringify(data, null, 2) );
+                    //stockDetails.push(data);-
+                    resolve(data);
+                  }
+
+              }
+            )
+            });
         }
-      });
-
-    });
+        return finnhubpromise(item);
+      }
+    )
   
-    setWatchStocks2(stockDetails);
 
+
+  Promise.allSettled(thestocks)
+  .then(responses => {
+
+    for(let response of responses) {
+      stockDetails.push(response.value);
+    }
+
+    setWatchStocks2(stockDetails);
+    localStorage.setItem("userWatchlist", JSON.stringify(stockDetails));
+  })
+
+    
   }
 
 
@@ -81,6 +100,14 @@ const GithubProvider = ({ children }) => {
 
     if(userInfoFromStorage !== null) {
       setLoggedUser(userInfoFromStorage)
+    }
+
+    const userStockFromStorage = localStorage.getItem("userWatchlist")
+    ? JSON.parse(localStorage.getItem("userWatchlist"))
+    : null;
+  
+    if(userStockFromStorage !== null) {
+      setWatchStocks2(userStockFromStorage)
     }
  
     
@@ -336,7 +363,9 @@ const GithubProvider = ({ children }) => {
         loginError,
         registerUser,
         logout,
+        getCompanyProfile,
         watchStocks,
+        watchStocks2,
         stockInfo,
         stockNews,
         marketNews,

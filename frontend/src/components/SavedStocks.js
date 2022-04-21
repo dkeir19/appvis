@@ -3,32 +3,64 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 
 const SavedStocks = () => {
-  const { watchStocks } = React.useContext(GithubContext);
+  const { watchStocks, watchStocks2, searchStock } = React.useContext(GithubContext);
+
+  const handleSubmit = (e,ticker) => {
+    e.preventDefault();
+    if (ticker) {
+     
+      searchStock(ticker);
+      
+    }
+  };
 
   return (
     <Wrapper>
+  
       <div className='followers'>
-        {watchStocks.map((stock, index) => {
-          //const { avatar_url: img, html_url, login } = stock;
-          return (
-            <article key={index}>
-              <img src={stock[2]} alt={stock[1]} />
-              <div>
-                <h4>{stock[1]}</h4>
-                {/* <a href={html_url}>{html_url}</a> */}
-              </div>
-            </article>
-          );
-        })}
+        {   
+            Array.from(watchStocks2).map((item, index) => {
+              //const { avatar_url: img, html_url, login } = stock;
+              return (
+                <article key={index}>
+                  {/* <img src={stock[2]} alt={stock[1]} /> */}
+                 
+                  <a href="" onClick={(e) => { handleSubmit(e,item.ticker); } }>
+                    <img src={item.logo} alt={item.name}/>
+                  </a>
+                  <a href="https://appvis.co">
+                  <div>
+                    <h4>{item.name}</h4>
+                    <h5>{item.ticker}</h5>
+                    {/* <a href={html_url}>{html_url}</a> */}
+                  </div>
+                  </a>
+                  <div>
+                    Remove stock
+                  </div>
+                </article>
+              );
+              // return (
+              //   <article key={index}>
+              //     <img src={stock[2]} alt={stock[1]} />
+              //     <div>
+              //       <h4>{stock[1]}</h4>
+              //       {/* <a href={html_url}>{html_url}</a> */}
+              //     </div>
+              //   </article>
+              // );
+            })
+      }
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.article`
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background: var(--clr-white);
+  display: grid;
+
+  
+    background: var(--clr-white);
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
@@ -62,7 +94,7 @@ const Wrapper = styled.article`
     padding: 0.15rem 0.5rem;
     border-radius: var(--radius);
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     column-gap: 1rem;
     img {

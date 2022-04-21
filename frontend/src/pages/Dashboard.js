@@ -25,7 +25,7 @@ const Dashboard = () => {
       
       {/* <Repos /> */}
      
-      <Marketnews />
+      {/* <Marketnews /> */}
       
     </main>
   );
