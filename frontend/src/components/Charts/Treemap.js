@@ -93,7 +93,11 @@ const Treemap = (stockName) => {
             
 
                 //console.log(JSON.stringify(merged,null,2))
-
+            if (typeof myChart2 !== "undefined") myChart2.destroy();
+            let chartStatus = Chart.getChart("myChart2"); // <canvas> id
+            if (chartStatus != undefined) {
+            chartStatus.destroy();
+            }
             myChart2 = new Chart(ctx2, {
                 type: "treemap",
                 data: {

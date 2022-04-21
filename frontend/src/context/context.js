@@ -102,6 +102,7 @@ const GithubProvider = ({ children }) => {
       setLoggedUser(userInfoFromStorage)
     }
 
+    try{ 
     const userStockFromStorage = localStorage.getItem("userWatchlist")
     ? JSON.parse(localStorage.getItem("userWatchlist"))
     : null;
@@ -109,7 +110,8 @@ const GithubProvider = ({ children }) => {
     if(userStockFromStorage !== null) {
       setWatchStocks2(userStockFromStorage)
     }
- 
+  }
+  catch(e) {}
     
     const finnhub = require('finnhub');
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
@@ -259,7 +261,7 @@ const GithubProvider = ({ children }) => {
     }
   };
 
-  const addToWatch = async (ticker, user) => {
+  const addToWatch = async (ticker) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -280,6 +282,34 @@ const GithubProvider = ({ children }) => {
 
       // bring back stock summary from finnhub
       getCompanyProfile(data.savedStocks);
+
+
+    } catch (error) {
+     
+    }
+  };
+
+  const removeStock = async (ticker, user) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+ 
+      const { data } = await axios.post(
+        "/api/users/watchlistremove",
+        { ticker, loggedUser},
+        config
+      );
+  
+     
+      setLoggedUser(data)
+      setWatchStocks2(watchStocks2.filter( record => record.ticker !== ticker) );
+      // setWatchStocks2(data.savedStocks);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userWatchlist", watchStocks2)
 
 
     } catch (error) {
@@ -366,6 +396,7 @@ const GithubProvider = ({ children }) => {
         getCompanyProfile,
         watchStocks,
         watchStocks2,
+        removeStock,
         stockInfo,
         stockNews,
         marketNews,

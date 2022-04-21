@@ -43,8 +43,10 @@ const Stock2 = (stockName) => {
             const ctx = document.getElementById('myChart');
         
             if (typeof myChart !== "undefined") myChart.destroy();
-
-            
+            let chartStatus = Chart.getChart("myChart"); // <canvas> id
+            if (chartStatus != undefined) {
+            chartStatus.destroy();
+            }
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: {

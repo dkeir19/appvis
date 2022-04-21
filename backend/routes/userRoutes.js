@@ -8,9 +8,11 @@ import {
   registerUser,
   getUserProfile,
   updateUserProfile,
-  watchList
+  watchList,
+  watchListRemove
 } from "../controllers/userController.js";
 router.post("/watchlist", watchList);
+router.post("/watchlistremove", watchListRemove);
 router.route("/").post(registerUser);
 router.post("/login", authUser);
 router

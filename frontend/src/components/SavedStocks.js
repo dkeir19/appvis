@@ -3,13 +3,22 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 
 const SavedStocks = () => {
-  const { watchStocks, watchStocks2, searchStock } = React.useContext(GithubContext);
+  const { watchStocks, watchStocks2, searchStock, removeStock, loggedUser } = React.useContext(GithubContext);
 
   const handleSubmit = (e,ticker) => {
     e.preventDefault();
     if (ticker) {
      
       searchStock(ticker);
+      
+    }
+  };
+
+  const handleRemove = (e,ticker) => {
+    e.preventDefault();
+    if (ticker) {
+     
+      removeStock(ticker);
       
     }
   };
@@ -28,7 +37,7 @@ const SavedStocks = () => {
                   <a href="" onClick={(e) => { handleSubmit(e,item.ticker); } }>
                     <img src={item.logo} alt={item.name}/>
                   </a>
-                  <a href="https://appvis.co">
+                  <a href="" onClick={(e) => { handleSubmit(e,item.ticker); } }>
                   <div>
                     <h4>{item.name}</h4>
                     <h5>{item.ticker}</h5>
@@ -36,7 +45,9 @@ const SavedStocks = () => {
                   </div>
                   </a>
                   <div>
+                  <a href="" onClick={(e) => { handleRemove(e,item.ticker); } }>
                     Remove stock
+                  </a>
                   </div>
                 </article>
               );

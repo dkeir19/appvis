@@ -95,6 +95,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      savedStocks:updatedUser.savedStocks,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -119,8 +120,50 @@ const watchList = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
     console.log(user.savedStocks);
-    user.savedStocks.push(ticker);
-    console.log(user.savedStocks);
+    // const a = await User.find({savedStocks:ticker})
+    const found = user.savedStocks.find(element => element == ticker);
+
+    if(found  ==undefined  )  {
+      // debugger;
+      user.savedStocks.push(ticker);
+      console.log(user.savedStocks);
+      const updatedUser = await user.save();
+    
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      savedStocks: updatedUser.savedStocks,
+      token: generateToken(updatedUser._id),
+    });
+  }
+  else {
+    res.status(404);
+    res.json({})
+  }
+
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+const watchListRemove = asyncHandler(async (req, res) => {
+  console.log('in watchlistremove');
+  console.log(req.body.loggedUser._id)
+  const user = await User.findById(req.body.loggedUser._id);
+  const ticker = req.body.ticker;
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    user.savedStocks.pull(ticker);
+
     const updatedUser = await user.save();
     res.json({
       _id: updatedUser._id,
@@ -136,4 +179,4 @@ const watchList = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, getUserProfile, updateUserProfile, watchList };
+export { authUser, registerUser, getUserProfile, updateUserProfile, watchList, watchListRemove };
