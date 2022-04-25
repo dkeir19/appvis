@@ -3,7 +3,7 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink, MdInsertChart, MdAttachMoney } from 'react-icons/md';
 const Stockinfo = () => {
-  const { stockInfo, stockNews, addToWatch  } = React.useContext(GithubContext);
+  const { stockInfo, stockNews, addToWatch, loggedUser, toggleLogin } = React.useContext(GithubContext);
   const {
     weburl,
     name,
@@ -13,12 +13,12 @@ const Stockinfo = () => {
     finnhubIndustry,
     company,
     country,
-    loggedUser,
   } = stockInfo;
   //const {a} = stockNews;
 
 
-  console.log(JSON.stringify(stockNews, null, 2) );
+
+  console.log(JSON.stringify(loggedUser, null, 2) );
   
   const handleAddWatch = (e) => {
     e.preventDefault();
@@ -26,6 +26,11 @@ const Stockinfo = () => {
     addToWatch(ticker);
   };
 
+
+  const signin = (e) => {
+    e.preventDefault();
+    toggleLogin(true);
+  }
   // const handleError = (this) => {
   //   this.parentElement.innerHTML = '';
   // }
@@ -41,8 +46,15 @@ const Stockinfo = () => {
           {/* <p>@{twitter_username || 'john doe'}</p> */}
         </div>
 
-        <a onClick={(e) => { handleAddWatch(e,ticker); } } className="menu-item--small" href="">Add to my watch list</a>
-        {/* <a href={html_url}>follow</a> */}
+        {loggedUser  ? (
+          <a onClick={(e) => { handleAddWatch(e,ticker); } } className="menu-item--small" href="">Add to my watch list</a>
+        ) : (
+          <p><a onClick={(e) => signin(e) } className="menu-item--small" href="">Sign in</a> to add to watchlist</p>
+        )
+        }
+
+
+
       </header>
       <p className='bio'></p>
       <div className='links'>

@@ -11,7 +11,7 @@ import RegisterScreenModal from './RegisterScreenModal.js';
 const Navbar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { requests, error, searchGithubUser, searchStock, isLoading, loggedUser, login, logout, loginError } = React.useContext(
+  const { requests, error, searchGithubUser, searchStock, isLoading, loggedUser, login, logout, loginError, showLogin, toggleLogin } = React.useContext(
     GithubContext
   );
   const logoutHandler = () => {
@@ -39,11 +39,16 @@ const Navbar = () => {
   }
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => { setShow(false); toggleLogin(false) } ;
   const handleShow = () => setShow(true);
   const [registerPath, setRegisterPath] = useState(true);
   const handleRegister = () => setRegisterPath(false);
   let props = {handleShow, handleRegister};
+
+  useEffect(() => {
+    if(showLogin==true)
+      setShow(true);
+  }, [showLogin]);
 
   return (
     <div>

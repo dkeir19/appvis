@@ -37,6 +37,13 @@ const GithubProvider = ({ children }) => {
   const [watchStocks, setWatchStocks] = useState( state  );
   const [watchStocks2, setWatchStocks2] = useState( 0  );
 
+  const[showLogin, setShowLogin] = useState(false);
+  
+  const toggleLogin = (setting) => {
+
+    setShowLogin(setting);
+  }
+
 
   const getCompanyProfile = async (stocks) => {
     const finnhub = require('finnhub');
@@ -411,6 +418,8 @@ const GithubProvider = ({ children }) => {
         currentStock,
         currentStockName,
         addToWatch,
+        showLogin,
+        toggleLogin,
       }}
     >
       {children}
