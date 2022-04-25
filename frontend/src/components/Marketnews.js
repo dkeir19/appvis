@@ -8,13 +8,13 @@ const Marketnews = () => {
   return (
     <section className='section' id='market-news'>
     <Wrapper className='section-center'>
-        {marketNews != 0 ? marketNews.slice(0,2).map((news, index) => {
+        {marketNews != 0 ? marketNews.slice(0,5).map((news, index) => {
           // const { avatar_url: img, html_url, login } = follower;
           const { category, datetime, headline, image, source, summary, url } = news;
 
           return (
             <article key={index}>
-              <img src={image} alt={headline}/>
+              {/* <img src={image} alt={headline}/> */}
               <h4>{headline}</h4>
               <p>{summary}</p>
               <p><a href={url}>{url}</a></p>
@@ -30,6 +30,7 @@ const Marketnews = () => {
   );
 };
 const Wrapper = styled.article`
+ 
   background: var(--clr-white);
   padding: 1.5rem 2rem;
   border-top-right-radius: var(--radius);
@@ -52,9 +53,11 @@ const Wrapper = styled.article`
     font-size: 1rem;
   }
   article {
+    margin-bottom:10px;
     img {
       width: 150px;
       height: 150px;
+      
     }
   }
   header {
@@ -69,15 +72,15 @@ const Wrapper = styled.article`
       border-radius: 50%;
     }
     h4 {
-      margin-bottom: 0.25rem;
+      //margin-bottom: 0.25rem;
     }
     p {
-      margin-bottom: 0;
+      margin-bottom: 0px;
     }
     a {
       color: var(--clr-primary-5);
       border: 1px solid var(--clr-primary-5);
-      padding: 0.25rem 0.75rem;
+      //padding: 0.25rem 0.75rem;
       border-radius: 1rem;
       text-transform: capitalize;
       letter-spacing: var(--spacing);
@@ -92,10 +95,11 @@ const Wrapper = styled.article`
   .bio {
     color: var(--clr-grey-3);
   }
-  .links {
+
     p,
     a {
-      margin-bottom: 0.25rem;
+      //margin-bottom: 0.25rem;
+      margin-bottom:0px !important;
       display: flex;
       align-items: center;
       svg {
@@ -113,6 +117,5 @@ const Wrapper = styled.article`
         color: var(--clr-primary-3);
       }
     }
-  }
 `;
 export default Marketnews;

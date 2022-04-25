@@ -13,8 +13,11 @@ const Stockinfo = () => {
     finnhubIndustry,
     company,
     country,
+    loggedUser,
   } = stockInfo;
   //const {a} = stockNews;
+
+
   console.log(JSON.stringify(stockNews, null, 2) );
   
   const handleAddWatch = (e) => {
@@ -22,6 +25,10 @@ const Stockinfo = () => {
     console.log('in handleaddwatch');
     addToWatch(ticker);
   };
+
+  // const handleError = (this) => {
+  //   this.parentElement.innerHTML = '';
+  // }
 
   return (
     <Wrapper>
@@ -39,30 +46,31 @@ const Stockinfo = () => {
       </header>
       <p className='bio'></p>
       <div className='links'>
-        <p>
-          {company}
-        </p>
+   
         <p>
           <MdLocationOn></MdLocationOn> {country}
         </p>
         <p><MdAttachMoney></MdAttachMoney>{exchange}</p>
+        <br/>
         <p><MdBusiness></MdBusiness>{finnhubIndustry}</p>
         <p><MdInsertChart></MdInsertChart>{ticker}</p>
         <a href={`https://${weburl}`}>
           <MdLink></MdLink>
           {weburl}
         </a>
-        
+      </div>   
         {stockNews != 0 ? stockNews.slice(0,2).map((news, index) => {
           // const { avatar_url: img, html_url, login } = follower;
           const {image, headline, summary, url} = news
           return (
-            <article key={index}>
-              <img src={image} alt={headline}/>
+            <div key={index}>
+             
+              <img src={image} id='aa' onError={i => i.target.style.display='none'}   alt={headline}/>
+            
               <h4>{headline}</h4>
-              <p>{summary}</p>
-              <p><a href={url}>{url}</a></p>
-            </article>
+              <p>{summary} <a href={url}>article &#10095;&#10095;</a></p>
+            
+            </div>
             // <div>{news['headline']}</div>
             
           )
@@ -70,7 +78,7 @@ const Stockinfo = () => {
 
 
 
-      </div>
+     
     </Wrapper>
   );
 };
@@ -98,10 +106,35 @@ const Wrapper = styled.article`
     letter-spacing: var(--spacing);
     font-size: 1rem;
   }
-  article {
+  div {
+    position:relative;
     img {
-      width: 150px;
-      height: 150px;
+      // width: 150px;
+      // height: 150px;
+      height:200px;
+      opacity:0.65;
+      object-fit:cover;
+      margin-top:10px;
+      margin-bottom:20px;
+    }
+    h4 {
+      position: relative;
+      //top:-200%;
+      //transform: translateY(-125%);
+      font-size:14px;
+      //left:0.5rem;
+      z-index:2;
+      background-color:#fff;
+      padding: 8px 0px 0px 0px;
+      //margin:5px;
+      margin-bottom:0px;
+    }
+    p {
+      // position:absolute;
+      // top:11rem;
+      a {
+        display:inline-block;
+      }
     }
   }
   header {
@@ -116,7 +149,8 @@ const Wrapper = styled.article`
       border-radius: 50%;
     }
     h4 {
-      margin-bottom: 0.25rem;
+      //margin-bottom: 0.25rem;
+     
     }
     p {
       margin-bottom: 0;
@@ -143,10 +177,13 @@ const Wrapper = styled.article`
     p,
     a {
       margin-bottom: 0.25rem;
-      display: flex;
+      display: inline;
+     
       align-items: center;
+      margin-bottom:10px;
+      margin-right:20px;
       svg {
-        margin-right: 0.5rem;
+        margin-right: 0.25rem;
         font-size: 1.3rem;
       }
     }

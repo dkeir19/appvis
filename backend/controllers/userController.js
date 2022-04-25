@@ -42,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    savedStocks: ['GOOGL']
   });
 
   if (user) {
@@ -50,6 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      savedStocks: user.savedStocks,
       token: generateToken(user._id),
     });
   } else {

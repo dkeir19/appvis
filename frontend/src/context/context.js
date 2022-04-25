@@ -256,6 +256,11 @@ const GithubProvider = ({ children }) => {
      
       setLoggedUser(data)
       localStorage.setItem("userInfo", JSON.stringify(data));
+
+      
+      setWatchStocks2(data.savedStocks);
+      getCompanyProfile(data.savedStocks);
+      localStorage.setItem("userWatchlist", JSON.stringify(data.savedStocks));
     } catch (error) {
      
     }
@@ -279,6 +284,8 @@ const GithubProvider = ({ children }) => {
      
       setLoggedUser(data)
       localStorage.setItem("userInfo", JSON.stringify(data));
+
+    
 
       // bring back stock summary from finnhub
       getCompanyProfile(data.savedStocks);

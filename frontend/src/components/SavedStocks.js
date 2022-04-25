@@ -94,7 +94,6 @@ const Wrapper = styled.article`
   }
   .followers {
     overflow: scroll;
-    height: 260px;
     display: grid;
     grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
     gap: 1.25rem 1rem;
