@@ -7,6 +7,8 @@ import SavedStocks from './SavedStocks'
 import { Treemap } from './Charts'
 import { GithubContext } from '../context/context';
 import { Stock2 } from './Charts';
+import { Candlestick } from './Charts';
+
 const User = () => {
   const { repos, currentStock, currentStockName } = React.useContext(GithubContext);
 
@@ -19,8 +21,8 @@ const User = () => {
         <Treemap stockName={currentStockName}/>
         
         
-        
-        <Stock2 stockName={currentStockName}/>
+        <Candlestick/>
+        {/* <Stock2 stockName={currentStockName}/> */}
         {/* <Followers></Followers> */}
       </Wrapper>
     </section>

@@ -96,7 +96,8 @@ const Stockinfo = () => {
 };
 const Wrapper = styled.article`
   grid-row-start: 1;
-  grid-row-end: 3;
+  grid-row-end: 4;
+  margin-bottom:1rem;
   background: var(--clr-white);
   padding: 1.5rem 2rem;
   border-top-right-radius: var(--radius);

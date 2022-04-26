@@ -71,11 +71,12 @@ const Wrapper = styled.article`
   display: grid;
 
   
-    background: var(--clr-white);
+  background: var(--clr-white);
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
   position: relative;
+  margin-bottom:2rem;
 
   &::before {
     content: 'My watch list';

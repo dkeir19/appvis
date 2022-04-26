@@ -5,7 +5,8 @@ import Doughnut from "./Doughnut";
 import Stock from "./Stock";
 import Stock2 from "./Stock2";
 import Treemap from "./Treemap";
+import Candlestick from "./Candlestick";
 
 
 
-export { Pie, Column, Bar, Doughnut, Stock, Stock2, Treemap };
+export { Pie, Column, Bar, Doughnut, Stock, Stock2, Treemap, Candlestick };

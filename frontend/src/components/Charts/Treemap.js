@@ -235,8 +235,9 @@ const Treemap = (stockName) => {
 
 }
 const Wrapper = styled.div`
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    margin-bottom:1rem;
   /* align-items: start; */
 `;
 export default Treemap;
