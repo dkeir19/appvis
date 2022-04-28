@@ -126,8 +126,8 @@ const GithubProvider = ({ children }) => {
     const finnhubClient = new finnhub.DefaultApi()
 
 
-    const date1= parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0))
-    const date2= parseInt((new Date('2012.08.12').getTime() / 1000).toFixed(0))
+    const date1= parseInt((new Date('2022.04.01').getTime() / 1000).toFixed(0))
+    const date2= parseInt((new Date('2022.04.25').getTime() / 1000).toFixed(0))
 
     var getDaysArray = function(start, end) {
       for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
@@ -135,7 +135,7 @@ const GithubProvider = ({ children }) => {
       }
       return arr;
     };
-    const daysArray=getDaysArray("2012-08-10","2012-08-12")
+    const daysArray=getDaysArray("2012-08-10","2022-04-12")
     // console.log('got stock');
     // console.log(JSON.stringify(daysArray, null, 2) );
 
@@ -150,14 +150,18 @@ const GithubProvider = ({ children }) => {
           const temp=[]
           const appended=[]
           for(var i = 0; i < data.h.length; i++) {
-            temp[i]=[ daysArray[i].toISOString().substring(0, 10), data.o[i], data.h[i], data.l[i], data.c[i], data.v[i]]
+            //temp[i]=[ daysArray[i].toISOString().substring(0, 10), data.o[i], data.h[i], data.l[i], data.c[i], data.v[i]]
+            let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+            d.setUTCSeconds(data.t[i]);
+            temp[i]= {x: d.valueOf() , o:data.o[i], h:data.h[i], l:data.l[i], c: data.c[i] }
             appended[i]=temp[i]
           }
+          console.log(typeof(data.t[1]));
           console.log(appended );
           //daysArray[i].toString().slice(1,10)
           //console.log(data.h);
   
-          //setCurrentStock(appended);
+          setCurrentStock(appended);
           setCurrentStockName({stock}.stock)
         }
 

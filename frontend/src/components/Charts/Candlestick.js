@@ -7,7 +7,11 @@ import { DateTime } from "luxon";
 import 'chartjs-adapter-luxon';
 import styled from 'styled-components';
 
+import { GithubContext } from '../../context/context';
+
 const Candlestick = () => {
+
+const { currentStock, currentStockName } = React.useContext(GithubContext);
 
 let chart22;
 
@@ -35,8 +39,8 @@ React.useEffect(() => {
         type: 'candlestick',
         data: {
             datasets: [{
-                label: 'CHRT - Chart.js Corporation',
-                data: barData
+                label: currentStockName,
+                data: currentStock
             }]
         }
     });
