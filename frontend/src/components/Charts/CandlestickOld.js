@@ -143,6 +143,12 @@ React.useEffect(() => {
         chart22.update();
     };
 
+    document.getElementById('update').addEventListener('click', update);
+
+    document.getElementById('randomizeData').addEventListener('click', function() {
+        barData = getRandomData(initialDateStr, barCount);
+        update();
+    });
 
 })
 
@@ -153,7 +159,33 @@ return (
 			<canvas id="candlestick1"></canvas>
 		</div>
 		<div>
-
+			Bar Type:
+			<select id="type">
+				<option value="candlestick" selected>Candlestick</option>
+				<option value="ohlc">OHLC</option>
+			</select>
+			Scale Type:
+			<select id="scale-type">
+				<option value="linear" selected>Linear</option>
+				<option value="logarithmic">Logarithmic</option>
+			</select>
+			Color Scheme:
+			<select id="color-scheme">
+				<option value="muted" selected>Muted</option>
+				<option value="neon">Neon</option>
+			</select>
+			Border:
+			<select id="border">
+				<option value="true" selected>Yes</option>
+				<option value="false">No</option>
+			</select>
+			Mixed:
+			<select id="mixed">
+				<option value="true">Yes</option>
+				<option value="false" selected>No</option>
+			</select>
+			<button id="update">Update</button>
+			<button id="randomizeData">Randomize Data</button>
 		</div>
   </div>
 </Wrapper>    
