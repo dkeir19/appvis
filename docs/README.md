@@ -215,7 +215,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/fruitnsalad/appvis
+[contributors-shield]: https://img.shields.io/github/contributors/fruitnsalad/appvis?style=for-the-badge
 [contributors-url]: https://github.com/fruitnsalad/appvis/graphs/contributors
 
 
