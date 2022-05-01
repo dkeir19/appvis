@@ -203,7 +203,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [stars-shield]: https://img.shields.io/github/stars/fruitnsalad/appvis.svg?style=for-the-badge
 [stars-url]: https://github.com/fruitnsalad/appvis/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/fruitnsalad/appvis/.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/fruitnsalad/appvis?style=for-the-badge
 [issues-url]: https://github.com/github_username/fruitnsalad/appvis
 
 [issues-shield]:https://img.shields.io/github/issues/fruitnsalad/appvis?style=for-the-badge
