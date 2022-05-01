@@ -219,7 +219,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [contributors-url]: https://github.com/fruitnsalad/appvis/graphs/contributors
 
 
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/fruitnsalad/repo_name.svg?style=for-the-badge
 [forks-url]: https://github.com/fruitnsalad/appvis/network/members
 
 [stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
