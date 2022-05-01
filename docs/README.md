@@ -228,10 +228,10 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/fruitnsalad/appvis/.svg?style=for-the-badge
 [issues-url]: https://github.com/github_username/fruitnsalad/appvis
 
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
+[issues-shield]: https://img.shields.io/github/issues/fruitnsald/appvis.svg?style=for-the-badge
+[issues-url]: https://github.com/fruitnsalad/appvist/issues
 
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/fruitnsalad/appvis.svg?style=for-the-badge
 [license-url]: https://github.com/fruitnsalad/appvis/blob/master/LICENSE.txt
 
 [product-screenshot]: https://github.com/fruitnsalad/appvis/blob/main/images/screenshot.png
