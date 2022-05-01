@@ -17,10 +17,8 @@
   <p align="center">
     Visualisation and news for the NASDAQ-100 stock market index
     <br />
-    <a href="https://github.com/fruitnsalad/appvis"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/fruitnsalad/appvis">View Demo</a>
+    <a href="https://appvis.co">View Demo</a>
     ·
     <a href="https://github.com/fruitnsalad/appvis/issues">Report Bug</a>
     ·
@@ -43,7 +41,6 @@
     <li>
       <a href="#installation">Installation</a>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -110,9 +107,7 @@
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are encouraged and appreciated. Please either
-  -Fork the repo and create a pull request
-  -Open an issue with tag 'enhancement'
+Contributions are encouraged and appreciated. Please either open an issue with the tag 'enhancement' or
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/NewFeature`)
