@@ -235,8 +235,15 @@ const Treemap = (stockName) => {
 
 }
 const Wrapper = styled.div`
-    grid-row-start: 3;
-    grid-row-end: 4;
+    #myChartTreemap{
+        max-width:100%;
+    }
+
+    @media (min-width: 992px) {
+        grid-row-start: 3;
+        grid-row-end: 4; 
+    }
+    
     margin-bottom:1rem;
   /* align-items: start; */
 `;

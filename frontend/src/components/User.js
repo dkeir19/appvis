@@ -15,13 +15,13 @@ const User = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-     
-        <Stockinfo></Stockinfo>
-        <SavedStocks/>
+        
+        <Stockinfo/>
+         <SavedStocks/>
         <Treemap stockName={currentStockName}/>
+ 
         
-        
-        <Candlestick/>
+        <Candlestick/> 
         {/* <Stock2 stockName={currentStockName}/> */}
         {/* <Followers></Followers> */}
       </Wrapper>

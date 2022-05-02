@@ -67,7 +67,7 @@ const SavedStocks = () => {
   );
 };
 
-const Wrapper = styled.article`
+const Wrapper = styled.div`
   display: grid;
 
   

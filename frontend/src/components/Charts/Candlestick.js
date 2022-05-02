@@ -37,6 +37,8 @@ React.useEffect(() => {
 
     chart22 = new Chart(ctx, {
         type: 'candlestick',
+        responsive:true,
+        maintainAspectRatio: false, 
         data: {
             datasets: [{
                 label: currentStockName,
@@ -148,23 +150,29 @@ React.useEffect(() => {
 
 return (
 <Wrapper>
-    <div>
-		<div >
-			<canvas id="candlestick1"></canvas>
-		</div>
-		<div>
 
-		</div>
-  </div>
+			<canvas id="candlestick1"></canvas>
+
 </Wrapper>    
 )
 
 }
 
 const Wrapper = styled.div`
+
+    #candlestick1 {
+        max-width:100%;
+    }
+
     display:grid;
-    grid-row-start: 2;
-    grid-row-end: 3;
+  
+    position: relative;
+   
+    @media (min-width: 992px) {
+        grid-row-start: 2;
+        grid-row-end: 3; 
+    }
+    
     margin-bottom:1rem;
 
     background: var(--clr-white);

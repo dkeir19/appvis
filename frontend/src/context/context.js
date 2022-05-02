@@ -4,6 +4,7 @@ import mockRepos from './mockData.js/mockRepos';
 import mockFollowers from './mockData.js/mockFollowers';
 import axios from 'axios';
 import Finnhub from 'finnhub';
+import { api_key } from '../config.js'
 
 const rootUrl = 'https://api.github.com';
 
@@ -48,7 +49,7 @@ const GithubProvider = ({ children }) => {
   const getCompanyProfile = async (stocks) => {
     const finnhub = require('finnhub');
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = "c8cjreaad3i9nv0coua0";
+    api_key.apiKey = api_key;
     const finnhubClient = new finnhub.DefaultApi();
 
     // get stockinfo
