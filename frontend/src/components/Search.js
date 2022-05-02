@@ -29,7 +29,7 @@ const Search = () => {
             <MdSearch />
             <input
               type='text'
-              placeholder='enter Stock ticker'
+              placeholder='enter Stock ticker (ex. TSLA)'
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
@@ -48,6 +48,10 @@ const Wrapper = styled.div`
   position: relative;
   display: grid;
   gap: 1rem 1.75rem;
+  @media (max-width: 1323px) {
+    margin-top:35px;
+  }
+
   @media (min-width: 768px) {
     
     align-items: center;

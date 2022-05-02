@@ -7,7 +7,6 @@ import { Form, Button, Row, Col, Container, Nav, Modal} from "react-bootstrap";
 import { GithubContext } from '../context/context';
 import Burger from './Burger';
 import RegisterScreenModal from './RegisterScreenModal.js';
-import { handle } from 'express/lib/application';
 
 const Navbar = () => {
   const [email, setEmail] = useState("");
@@ -40,28 +39,21 @@ const Navbar = () => {
   }
 
   const [show, setShow] = useState(false);
-  const handleClose = () => { setShow(false); toggleLogin(false); setRegisterPath(true) } ;
+  const handleClose = () => { setShow(false); toggleLogin(false) } ;
   const handleShow = () => setShow(true);
   const [registerPath, setRegisterPath] = useState(true);
   const handleRegister = () => setRegisterPath(false);
   let props = {handleShow, handleRegister};
 
   useEffect(() => {
-    
     if(showLogin==true)
       setShow(true);
-    if(loggedUser) {
-      handleClose();
-    } 
-  }, [showLogin,loggedUser]);
+  }, [showLogin]);
 
   return (
     <div>
-      
-
-      <Wrapper className='thenav'>
-       <Burger {...props} />
-      
+      <Row className="justify-content-md-center">
+        <Col xs={12} md={6}>
       { loggedUser ? 
               (
                 <div>          
@@ -70,7 +62,8 @@ const Navbar = () => {
               ) :
               (<div></div>)
               }
-      </Wrapper>
+        </Col>
+      </Row>
       
       <Container>
         {/* <Button variant="primary" onClick={handleShow}>
@@ -80,7 +73,7 @@ const Navbar = () => {
 
           <Modal  show={show} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Sign in</Modal.Title>
+                <Modal.Title>Modal heading</Modal.Title>
               </Modal.Header>
               <Modal.Body>
               { loggedUser ? 
@@ -100,7 +93,7 @@ const Navbar = () => {
                   (
                     <Row className="justify-content-md-center">
                       <Col xs={12} md={6}>
-                        {/* <h2>Sign in</h2> */}
+                        <h1>Sign in</h1>
                         {loginError && <Message variant="danger">{loginError}</Message>}
                         {/* {loading && <Loader />}  */}
                         <Form onSubmit={submitHandler}>
@@ -133,22 +126,22 @@ const Navbar = () => {
                     </Row>
                   ) :
                   (
-                    <RegisterScreenModal path={setRegisterPath}  />
+                    <RegisterScreenModal/>
                   )
                 
               )} 
               </Modal.Body>
-              {/* <Modal.Footer>
+              <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
                 <Button variant="primary" onClick={handleClose}>
                   Save Changes
                 </Button>
-              </Modal.Footer>  */}
+              </Modal.Footer> 
             </Modal>        
              
-      
+        <Burger {...props} />
       </Container>
     </div>
 )
@@ -181,14 +174,6 @@ const Styledwrap = styled.div`
   .nav-link{
     font-size:.8rem;
     display: inline !important;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  div {
-
   }
 `;
 

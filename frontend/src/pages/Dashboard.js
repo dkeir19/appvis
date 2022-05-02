@@ -17,6 +17,7 @@ const Dashboard = () => {
   return (
     <main>
        {/* <Info /> */}
+      
       <Navbar></Navbar>
       
       <Search />

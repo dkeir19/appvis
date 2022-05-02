@@ -5,7 +5,7 @@ import Message from "./Message.js";
 import { GithubContext } from '../context/context';
 import { Link } from "react-router-dom";
 
-const RegisterScreenModal = ({ location, history }) => {
+const RegisterScreenModal = ({ location, history, path }) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ const RegisterScreenModal = ({ location, history }) => {
         <div>
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-            <h1>Sign Up</h1>
+            <h3>Please register</h3>
             {message && <Message variant="danger">{message}</Message>}
             {/*error && <Message variant="danger">{error}</Message>}
             {loading && <Loader />} */}
@@ -88,9 +88,12 @@ const RegisterScreenModal = ({ location, history }) => {
             <Row className="py-3">
               <Col>
                 Have an Account?{" "}
-                <Link to={"/login "}>
-                  Login
-                </Link>
+             
+              <a onClick={(event) => {   event.preventDefault(); path(true);  } } className="menu-item--small" href="">Login</a>
+                    
+
+
+
               </Col>
             </Row>
             </Col>

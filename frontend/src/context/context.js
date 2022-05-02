@@ -4,7 +4,7 @@ import mockRepos from './mockData.js/mockRepos';
 import mockFollowers from './mockData.js/mockFollowers';
 import axios from 'axios';
 import Finnhub from 'finnhub';
-import { api_key } from '../config.js'
+
 
 const rootUrl = 'https://api.github.com';
 
@@ -13,7 +13,9 @@ const GithubContext = React.createContext();
 // Provider, Consumer - GithubContext.Provider
 
 const GithubProvider = ({ children }) => {
+  var constants = require('../config')
   
+
   const [githubUser, setGithubUser] = useState(mockUser);
   const [repos, setRepos] = useState(mockRepos);
   const [followers, setFollowers] = useState(mockFollowers);
@@ -49,7 +51,7 @@ const GithubProvider = ({ children }) => {
   const getCompanyProfile = async (stocks) => {
     const finnhub = require('finnhub');
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = api_key;
+    api_key.apiKey = constants.api_key;
     const finnhubClient = new finnhub.DefaultApi();
 
     // get stockinfo
@@ -89,7 +91,7 @@ const GithubProvider = ({ children }) => {
     for(let response of responses) {
       stockDetails.push(response.value);
     }
-
+    
     setWatchStocks2(stockDetails);
     localStorage.setItem("userWatchlist", JSON.stringify(stockDetails));
   })
@@ -126,9 +128,18 @@ const GithubProvider = ({ children }) => {
     api_key.apiKey = "c8cjreaad3i9nv0coua0"
     const finnhubClient = new finnhub.DefaultApi()
 
+    let nowdate = new Date(Date.now());
+    let nowminus14 = new Date(nowdate);
+    nowminus14=new Date(nowminus14.setDate(-30));
 
-    const date1= parseInt((new Date('2022.04.01').getTime() / 1000).toFixed(0))
-    const date2= parseInt((new Date('2022.04.25').getTime() / 1000).toFixed(0))
+    //const date1=new Date('2022.04.01') 
+    const date1= parseInt((nowminus14.getTime() / 1000).toFixed(0))
+    const date2= parseInt((nowdate.getTime() / 1000).toFixed(0))
+
+
+
+    // const date1= parseInt((new Date('2022.04.01').getTime() / 1000).toFixed(0))
+    // const date2= parseInt((new Date('2022.04.25').getTime() / 1000).toFixed(0))
 
     var getDaysArray = function(start, end) {
       for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
@@ -224,7 +235,9 @@ const GithubProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("userWatchlist");
     setLoggedUser(0);
+    setWatchStocks2(0);
   }
 
   const login = async (email, password) => {
@@ -243,6 +256,9 @@ const GithubProvider = ({ children }) => {
 
       setLoggedUser(data)
       localStorage.setItem("userInfo", JSON.stringify(data));
+
+      getCompanyProfile(data.savedStocks);
+      
     } catch (error) {
       error.response && error.response.data.message
       ? setLoginError(error.response.data.message)
@@ -269,9 +285,9 @@ const GithubProvider = ({ children }) => {
       setLoggedUser(data)
       localStorage.setItem("userInfo", JSON.stringify(data));
 
-      
-      setWatchStocks2(data.savedStocks);
       getCompanyProfile(data.savedStocks);
+      //setWatchStocks2(data.savedStocks);
+     
       localStorage.setItem("userWatchlist", JSON.stringify(data.savedStocks));
     } catch (error) {
      

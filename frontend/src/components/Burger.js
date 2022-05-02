@@ -71,10 +71,13 @@ class Burger extends React.Component {
           isOpen={this.state.menuOpen}
           onStateChange={(state) => this.handleStateChange(state)}
         >
-        <a id="contact" className="menu-item" href="#market-news" onClick={ this.showSettings }>Market news</a>
-
+         <ul>
+           <li>
+        <a id="contact" className="menu-item--small" href="#market-news" onClick={ this.showSettings }>Market news</a>
+         </li>
+         </ul>
         {!loggedUser ? (
-        <ul>
+          <ul>  
           <li><a onClick={ this.toggleLogin } className="menu-item--small" href="">Sign in</a></li>
         
           <li><a onClick={ this.toggleRegister } className="menu-item--small" href="">Register</a></li>
@@ -82,7 +85,8 @@ class Burger extends React.Component {
         </ul>
          ) :
         (
-          <Nav.Link onClick={this.logoutHandler}>Logout</Nav.Link>
+          <ul>
+          <li> <a className="menu-item--small"  onClick={this.logoutHandler}>Logout</a> </li> </ul>
         ) }
       </Menu>
       </Wrapper>
@@ -96,7 +100,7 @@ const Wrapper=styled.div`
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: relative;
   width: 36px;
   height: 30px;
   left: 36px;
