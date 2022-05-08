@@ -1,6 +1,7 @@
 import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
+import loadingImage from '../images/preloader.gif';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
 const Marketnews = () => {
   const { marketNews } = React.useContext(GithubContext);
@@ -8,21 +9,31 @@ const Marketnews = () => {
   return (
     <section className='section' id='market-news'>
     <Wrapper className='section-center'>
-        {marketNews != 0 ? marketNews.slice(0,5).map((news, index) => {
-          // const { avatar_url: img, html_url, login } = follower;
-          const { category, datetime, headline, image, source, summary, url } = news;
 
-          return (
-            <article key={index}>
-              {/* <img src={image} alt={headline}/> */}
-              <h4>{headline}</h4>
-              <p>{summary}</p>
-              <p><a href={url}>{url}</a></p>
-            </article>
-            // <div>{news['headline']}</div>
-            
-          )
-        }) : ''}
+    {marketNews? (
+                   marketNews != 0 ? marketNews.slice(0,5).map((news, index) => {
+                    // const { avatar_url: img, html_url, login } = follower;
+                    const { category, datetime, headline, image, source, summary, url } = news;
+          
+                    return (
+                      
+                      <article key={index}>
+                        {/* <img src={image} alt={headline}/> */}
+                        <h4>{headline}</h4>
+                        <p>{summary}</p>
+                        <p><a href={url}>{url}</a></p>
+                      </article>
+                      // <div>{news['headline']}</div>
+                      
+                    )
+                  }) : ''
+        ) : (
+         
+           <img src={loadingImage} className='loading-img' alt='loding' />
+        )}
+
+
+
 
     </Wrapper>
 

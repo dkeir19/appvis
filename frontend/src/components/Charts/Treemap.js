@@ -44,7 +44,7 @@ const Treemap = (stockName) => {
             setTimeseries2({data: ''});
             const tickerResults=[]
 
-            const resp3 =  await axios.get("http://178.128.170.245/getnasdaq100");
+            const resp3 =  await axios.get("https://api.appvis.co/getnasdaq100");
             //console.log(JSON.stringify(resp3.data.data, null, 2));
             if (!isCancelled) {
                 setTimeseries2({data: 'yes'});

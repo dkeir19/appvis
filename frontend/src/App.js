@@ -11,9 +11,9 @@ function App() {
         
        
           <Route path="/register" component={RegisterScreen} exact />
-          <Route path='/login'>
+          {/* <Route path='/login'>
             <Login></Login>
-          </Route>
+          </Route> */}
           <Dashboard></Dashboard>
           <Route path='*'>
             <Error></Error>

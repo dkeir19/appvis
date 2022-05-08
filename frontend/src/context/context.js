@@ -107,6 +107,7 @@ const GithubProvider = ({ children }) => {
     
     setError(false, '');
     setIsLoading(true);
+    //console.log(isLoading);
     const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
@@ -161,14 +162,16 @@ const GithubProvider = ({ children }) => {
 
     // Stock candles
     console.log({stock}.stock);
+    let appended=[]
     if( {stock} !== "" ) {
       finnhubClient.stockCandles({stock}.stock, "D", date1, date2, (error, data, response) => {
+        
         if (error || data.s=="no_data" ) {
           toggleError(true, 'there is no listed company with that name');
         } else {
           console.log(JSON.stringify(data, null, 2) );
           const temp=[]
-          const appended=[]
+         
           for(var i = 0; i < data.h.length; i++) {
             //temp[i]=[ daysArray[i].toISOString().substring(0, 10), data.o[i], data.h[i], data.l[i], data.c[i], data.v[i]]
             let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -183,6 +186,7 @@ const GithubProvider = ({ children }) => {
   
           setCurrentStock(appended);
           setCurrentStockName({stock}.stock)
+          setIsLoading(false);
         }
 
       });
@@ -245,7 +249,7 @@ const GithubProvider = ({ children }) => {
 
 
     }
-    setIsLoading(false);
+    
   }
 
   const logout = () => {
@@ -370,7 +374,7 @@ const GithubProvider = ({ children }) => {
 
   const searchGithubUser = async (user) => {
     toggleError();
-    setIsLoading(true);
+    //setIsLoading(true);
     const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
       console.log(err)
     );
@@ -394,10 +398,10 @@ const GithubProvider = ({ children }) => {
         })
         .catch((err) => console.log(err));
     } else {
-      toggleError(true, 'there is no user with that username');
+      toggleError(true, 'there is no user with that name');
     }
     checkRequests();
-    setIsLoading(false);
+    //setIsLoading(false);
   };
 
   //  check rate
@@ -425,9 +429,9 @@ const GithubProvider = ({ children }) => {
   // error
   useEffect(checkRequests, []);
   //get initial user
-  useEffect(() => {
-    searchGithubUser('john-smilga');
-  }, []);
+  // useEffect(() => {
+  //   searchGithubUser('john-smilga');
+  // }, []);
   return (
     <GithubContext.Provider
       value={{
