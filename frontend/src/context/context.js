@@ -57,6 +57,7 @@ const GithubProvider = ({ children }) => {
     // get stockinfo
     const stockDetails = [];
 
+    
     const thestocks = stocks.map( item => {
 
         let finnhubpromise = function(item) {
@@ -103,7 +104,9 @@ const GithubProvider = ({ children }) => {
   
 
   const searchStock = async (stock) => {
-
+    
+    setError(false, '');
+    setIsLoading(true);
     const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
@@ -125,8 +128,13 @@ const GithubProvider = ({ children }) => {
     
     const finnhub = require('finnhub');
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = "c8cjreaad3i9nv0coua0"
-    const finnhubClient = new finnhub.DefaultApi()
+    api_key.apiKey = "c8cjreaad3i9nv0coua0";
+    const finnhubClient = new finnhub.DefaultApi();
+
+
+    finnhubClient.symbolSearch('MICROSOFT CORP', (error, data, response) => {
+      console.log(data)
+    });
 
     let nowdate = new Date(Date.now());
     let nowminus14 = new Date(nowdate);
@@ -206,7 +214,7 @@ const GithubProvider = ({ children }) => {
       today = yyyy + '-' + mm + '-' + dd;
 
       var yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
+      yesterday.setDate(yesterday.getDate() - 14);
       dd = String(yesterday.getDate()).padStart(2, '0');
       mm = String(yesterday.getMonth() + 1).padStart(2, '0'); //January is 0!
       yyyy = yesterday.getFullYear();
@@ -214,12 +222,19 @@ const GithubProvider = ({ children }) => {
       yesterday = yyyy + '-' + mm + '-' + dd;
 
       finnhubClient.companyNews( {stock}.stock, yesterday, today, (error, data, response) => {
-        if (error) {
-            console.error(error);
-        } else {
-            console.log(data)
-            setStockNews(data);
-        }
+        if (error || 
+          
+          ( data // 👈 null and undefined check
+           && Object.keys(data).length === 0)
+                     
+           ) {
+         
+         } else {
+          setStockNews(data);
+         }
+
+
+       
       });
 
       // General news
@@ -230,7 +245,7 @@ const GithubProvider = ({ children }) => {
 
 
     }
-
+    setIsLoading(false);
   }
 
   const logout = () => {

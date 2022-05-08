@@ -20,6 +20,7 @@
     "luxon": "^2.3.2",
     "mongoose": "^6.2.10",
     "react": "^16.13.1",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^2.2.3",
     "react-burger-menu": "^3.0.6",
     "react-dom": "^16.13.1",

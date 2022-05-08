@@ -17,7 +17,7 @@ const User = () => {
       <Wrapper className='section-center'>
         
         <Stockinfo/>
-         <SavedStocks/>
+        <SavedStocks/>
         <Treemap stockName={currentStockName}/>
  
         

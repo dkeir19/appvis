@@ -1,9 +1,10 @@
 import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
+import loadingImage from '../images/preloader.gif';
 import { MdBusiness, MdLocationOn, MdLink, MdInsertChart, MdAttachMoney } from 'react-icons/md';
 const Stockinfo = () => {
-  const { stockInfo, stockNews, addToWatch, loggedUser, toggleLogin } = React.useContext(GithubContext);
+  const { stockInfo, stockNews, addToWatch, loggedUser, toggleLogin, isLoading } = React.useContext(GithubContext);
   const {
     weburl,
     name,
@@ -12,7 +13,7 @@ const Stockinfo = () => {
     exchange,
     finnhubIndustry,
     company,
-    country,
+    country
   } = stockInfo;
   //const {a} = stockNews;
 
@@ -35,6 +36,12 @@ const Stockinfo = () => {
   //   this.parentElement.innerHTML = '';
   // }
 
+  if (isLoading) {
+    return (
+      <img src={loadingImage} className='loading-img' alt='loding' />
+    )
+  }
+
   return (
     <Wrapper>
       <header>
@@ -56,6 +63,9 @@ const Stockinfo = () => {
 
 
       </header>
+
+     
+
       <p className='bio'></p>
       <div className='links'>
    
@@ -71,7 +81,7 @@ const Stockinfo = () => {
           {weburl}
         </a>
       </div>   
-        {stockNews != 0 ? stockNews.slice(0,2).map((news, index) => {
+        {stockNews != 0 ? stockNews.slice(0,3).map((news, index) => {
           // const { avatar_url: img, html_url, login } = follower;
           const {image, headline, summary, url} = news
           return (
@@ -95,6 +105,27 @@ const Stockinfo = () => {
   );
 };
 const Wrapper = styled.article`
+
+  @keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(-2rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+  }
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
   grid-row-start: 1;
   grid-row-end: 4;
   margin-bottom:1rem;
