@@ -12,13 +12,17 @@ import { handle } from 'express/lib/application';
 const Navbar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { requests, error, searchGithubUser, searchStock, isLoading, loggedUser, login, logout, loginError, showLogin, toggleLogin } = React.useContext(
+  const { requests, error, searchGithubUser, searchStock, isLoading, loggedUser, login, logout, loginError, showLogin, toggleLogin, loginwithgoogle, fetchUserGoogle } = React.useContext(
     GithubContext
   );
+
+
+  
   const logoutHandler = () => {
     //e.preventDefault();
     logout();
   };
+
 
   // const {
   //   isAuthenticated,
@@ -53,6 +57,7 @@ const Navbar = () => {
     if(loggedUser) {
       handleClose();
     } 
+    fetchUserGoogle();
   }, [showLogin,loggedUser]);
 
   return (
@@ -103,8 +108,8 @@ const Navbar = () => {
                         {/* <h2>Sign in</h2> */}
                         {loginError && <Message variant="danger">{loginError}</Message>}
                         {/* {loading && <Loader />}  */}
-                        
-                        <a href="/auth/google">Login With Google</a>
+                      
+                        <a href="/auth/google">Login with Google</a>
                         <Form onSubmit={submitHandler}>
                         <Form.Group controlId="email">
                           <Form.Label>Email address</Form.Label>

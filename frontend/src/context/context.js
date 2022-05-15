@@ -47,6 +47,29 @@ const GithubProvider = ({ children }) => {
     setShowLogin(setting);
   }
 
+  const fetchUserGoogle = async () => {
+    try {
+      const { data } = await axios.get(
+        "/api/current_user"
+      );
+      if (data != '' && loggedUser.email != data.email) { 
+        console.log(data)
+        setLoggedUser(data)
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
+        getCompanyProfile(data.savedStocks);
+      }
+      
+    } catch (error) {
+      error.response && error.response.data.message
+      ? setLoginError(error.response.data.message)
+      : setLoginError(error.message)
+    }
+
+    // const res = await axios.get('/api/current_user');
+    // const user = res.data;
+  }
+
 
   const getCompanyProfile = async (stocks) => {
     const finnhub = require('finnhub');
@@ -253,14 +276,18 @@ const GithubProvider = ({ children }) => {
   }
 
   const logout = async () => {
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("userWatchlist");
-    setLoggedUser(0);
-    setWatchStocks2(0);
-    const { data } = await axios.get(
+  
+    const a = await axios.get(
       "/api/logout"
     );
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("userWatchlist");
+   
+    setLoggedUser(0);
+    setWatchStocks2(0);
   }
+
+
 
   const login = async (email, password) => {
     const config = {
@@ -430,7 +457,7 @@ const GithubProvider = ({ children }) => {
     searchStock('AAPL');
   }, []);
   // error
-  useEffect(checkRequests, []);
+  // useEffect(checkRequests, []);
   //get initial user
   // useEffect(() => {
   //   searchGithubUser('john-smilga');
@@ -463,6 +490,7 @@ const GithubProvider = ({ children }) => {
         addToWatch,
         showLogin,
         toggleLogin,
+        fetchUserGoogle
       }}
     >
       {children}

@@ -11,6 +11,8 @@ import path from "path";
 import { passport } from "./services/passport.js";
 import cookieSession from "cookie-session";
 import keys from './config/keys.cjs';
+import querystring from 'querystring';
+
 dotenv.config();
 
 connectDB();  
@@ -42,6 +44,10 @@ app.use("/api/orders", orderRoutes);
 
 app.use("/api/users/watchlist", userRoutes);
 
+app.get('/api/current_user', (req, res) => {
+  res.send(req.user);
+});
+
 app.get(
   '/auth/google',
   passport.authenticate('google', {
@@ -55,13 +61,22 @@ app.get(
   (req, res) => {
     
     if (req.user) {
-      res.status(201).json({
+      // res.status(201).json({
+      //   googleId:0,
+      //   _id: req.user.id,
+      //   name: req.user.name,
+      //   email: req.user.email,
+      //   savedStocks: req.user.savedStocks
+      // });
+      res.redirect(303, '/?' + querystring.stringify(
+        {
         googleId:0,
         _id: req.user.id,
         name: req.user.name,
         email: req.user.email,
         savedStocks: req.user.savedStocks
-      });
+        }
+      ));
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -72,6 +87,7 @@ app.get(
 
 app.get('/api/logout', (req, res) => {
   req.logout();
+  res.send('logged out');
 });
 
 app.get("/api/config/paypal", (req, res) =>
