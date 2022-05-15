@@ -252,11 +252,14 @@ const GithubProvider = ({ children }) => {
     
   }
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userWatchlist");
     setLoggedUser(0);
     setWatchStocks2(0);
+    const { data } = await axios.get(
+      "/api/logout"
+    );
   }
 
   const login = async (email, password) => {

@@ -7,18 +7,20 @@ function App() {
   return (
    
       <Router>
-        <Switch>
+     
         
        
           <Route path="/register" component={RegisterScreen} exact />
           {/* <Route path='/login'>
             <Login></Login>
           </Route> */}
-          <Dashboard></Dashboard>
-          <Route path='*'>
+
+          <Route path="/" component={Dashboard} exact />
+          
+          {/* <Route path='*'>
             <Error></Error>
-          </Route>
-        </Switch>
+          </Route> */}
+      
       </Router>
   
   );

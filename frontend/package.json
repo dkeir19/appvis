@@ -1,6 +1,5 @@
 {
   "name": "stock-search",
-  "proxy": "http://localhost:5000",
   "version": "1.0",
   "private": true,
   "dependencies": {
@@ -20,6 +19,8 @@
     "http-proxy-middleware": "^2.0.6",
     "luxon": "^2.3.2",
     "mongoose": "^6.2.10",
+    "passport": "^0.5.2",
+    "passport-google-oidc": "^0.1.0",
     "react": "^16.13.1",
     "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^2.2.3",

@@ -103,6 +103,8 @@ const Navbar = () => {
                         {/* <h2>Sign in</h2> */}
                         {loginError && <Message variant="danger">{loginError}</Message>}
                         {/* {loading && <Loader />}  */}
+                        
+                        <a href="/auth/google">Login With Google</a>
                         <Form onSubmit={submitHandler}>
                         <Form.Group controlId="email">
                           <Form.Label>Email address</Form.Label>

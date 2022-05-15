@@ -7,7 +7,10 @@ import orderRoutes from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errormiddleware.js";
 import morgan from "morgan";
 import path from "path";
-
+//import {passport} from "passport"; 
+import { passport } from "./services/passport.js";
+import cookieSession from "cookie-session";
+import keys from './config/keys.cjs';
 dotenv.config();
 
 connectDB();  
@@ -22,6 +25,15 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // const PORT = process.env.PORT || 5000;
 
 app.use("/api/products", productRoutes);
@@ -29,6 +41,38 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.use("/api/users/watchlist", userRoutes);
+
+app.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email']
+  })
+);
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google'),
+  (req, res) => {
+    
+    if (req.user) {
+      res.status(201).json({
+        googleId:0,
+        _id: req.user.id,
+        name: req.user.name,
+        email: req.user.email,
+        savedStocks: req.user.savedStocks
+      });
+    } else {
+      res.status(400);
+      throw new Error("Invalid user data");
+    }
+    //res.redirect('/');
+  }
+);
+
+app.get('/api/logout', (req, res) => {
+  req.logout();
+});
 
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
