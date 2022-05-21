@@ -75,7 +75,7 @@ const Navbar = () => {
               ) :
               (<div></div>)
               }
-      </Wrapper>
+      
       
       <Container>
         {/* <Button variant="primary" onClick={handleShow}>
@@ -109,7 +109,7 @@ const Navbar = () => {
                         {loginError && <Message variant="danger">{loginError}</Message>}
                         {/* {loading && <Loader />}  */}
                       
-                        <a href="/auth/google">Login with Google</a>
+                        
                         <Form onSubmit={submitHandler}>
                         <Form.Group controlId="email">
                           <Form.Label>Email address</Form.Label>
@@ -129,10 +129,13 @@ const Navbar = () => {
                             onChange={(e) => setPassword(e.target.value)}
                           ></Form.Control>
                         </Form.Group>
-                        <Button type="submit" variant="primary">
+                        <div className="d-grid gap-2">
+                        <Button type="submit" variant="primary" size="lg">
                           Sign in
                         </Button>
+                        </div>
                       </Form>
+                      <a href="/auth/google"><img src="/btn_google_signin_light_normal_web.png" alt="Login with Google"/></a>
                       New user?{" "}
                           <a onClick={(event) => {  setRegisterPath(false); event.preventDefault();   } } className="menu-item--small" href="">Register</a>
                     
@@ -157,6 +160,7 @@ const Navbar = () => {
              
       
       </Container>
+      </Wrapper>
     </div>
 )
 
@@ -188,6 +192,9 @@ const Styledwrap = styled.div`
   .nav-link{
     font-size:.8rem;
     display: inline !important;
+  }
+  button {
+    width:100% !important;
   }
 `;
 
