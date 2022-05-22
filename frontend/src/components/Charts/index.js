@@ -1,12 +1,6 @@
-import Column from "./Column";
-import Bar from "./Bar";
-import Pie from "./Pie";
-import Doughnut from "./Doughnut";
 import Stock from "./Stock";
 import Stock2 from "./Stock2";
 import Treemap from "./Treemap";
 import Candlestick from "./Candlestick";
 
-
-
-export { Pie, Column, Bar, Doughnut, Stock, Stock2, Treemap, Candlestick };
+export {  Stock, Stock2, Treemap, Candlestick };

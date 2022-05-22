@@ -15,17 +15,10 @@ const Dashboard = () => {
     );
   }
   return (
-    <main>
-       {/* <Info /> */}
-      
+    <main> 
       <Navbar></Navbar>
-      
       <Search />
       <User />
-    
-      
-      {/* <Repos /> */}
-     
       <Marketnews />
       
     </main>

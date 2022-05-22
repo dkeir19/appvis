@@ -1,9 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errormiddleware.js";
 import morgan from "morgan";
 import path from "path";
@@ -38,9 +36,7 @@ app.use(passport.session());
 
 // const PORT = process.env.PORT || 5000;
 
-app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/orders", orderRoutes);
 
 app.use("/api/users/watchlist", userRoutes);
 

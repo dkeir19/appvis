@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from './Card';
-import Followers from './Followers';
 import Stockinfo from './Stockinfo';
 import SavedStocks from './SavedStocks'
 import { Treemap } from './Charts'
