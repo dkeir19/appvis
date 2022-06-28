@@ -15,24 +15,11 @@ const Navbar = () => {
   const { requests, error, searchGithubUser, searchStock, isLoading, loggedUser, login, logout, loginError, showLogin, toggleLogin, loginwithgoogle, fetchUserGoogle } = React.useContext(
     GithubContext
   );
-
-
   
   const logoutHandler = () => {
     //e.preventDefault();
     logout();
   };
-
-
-  // const {
-  //   isAuthenticated,
-  //   loginWithRedirect,
-  //   logout,
-  //   loggedUser,
-  //   user,
-  //   isLoading,
-  // } = useAuth0();
-  // const isUser = isAuthenticated && user;
   
   const submitHandler = (e) => {
     e.preventDefault();
@@ -93,9 +80,7 @@ const Navbar = () => {
                 <div>          
                   <h4>Hey, {loggedUser.name}</h4>
                    
-                      
-                      <Nav.Link onClick={logoutHandler}>
-                        <i className="fas fa-shopping-cart"></i> Cart
+                      <Nav.Link onClick={logoutHandler}>   
                       </Nav.Link>
                
                 </div>
@@ -105,11 +90,9 @@ const Navbar = () => {
                   (
                     <Row className="justify-content-md-center">
                       <Col xs={12} md={6}>
-                        {/* <h2>Sign in</h2> */}
+  
                         {loginError && <Message variant="danger">{loginError}</Message>}
-                        {/* {loading && <Loader />}  */}
-                      
-                        
+    
                         <Form onSubmit={submitHandler}>
                         <Form.Group controlId="email">
                           <Form.Label>Email address</Form.Label>
@@ -148,14 +131,7 @@ const Navbar = () => {
                 
               )} 
               </Modal.Body>
-              {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                  Save Changes
-                </Button>
-              </Modal.Footer>  */}
+
             </Modal>        
              
       
@@ -164,27 +140,6 @@ const Navbar = () => {
     </div>
 )
 
-  // return (
-  //   <Wrapper>
-  //     {isUser && user.picture && <img src={user.picture} alt={user.name} />}
-  //     {isUser && user.name && (
-  //       <h4>
-  //         Welcome, <strong>{user.name.toUpperCase()}</strong>
-  //       </h4>
-  //     )}
-  //     {isUser ? (
-  //       <button
-  //         onClick={() => {
-  //           logout({ returnTo: window.location.origin });
-  //         }}
-  //       >
-  //         logout
-  //       </button>
-  //     ) : (
-  //       <button onClick={loginWithRedirect}>login</button>
-  //     )}
-  //   </Wrapper>
-  // );
 };
 
 const Styledwrap = styled.div`
@@ -206,38 +161,5 @@ const Wrapper = styled.div`
   }
 `;
 
-// const Wrapper = styled.nav`
-  // display:inline;
-  // & .nav-link {
-  //   display:inline !important;
-  // }
-  // padding: 1.5rem;
-  // background: var(--clr-white);
-  // text-align: center;
-  // display: grid;
-  // grid-template-columns: auto auto 100px;
-  // justify-content: center;
-  // align-items: center;
-  // gap: 1.5rem;
-  // h4 {
-  //   margin-bottom: 0;
-  //   font-weight: 400;
-  // }
-  // img {
-  //   width: 35px !important;
-  //   height: 35px;
-  //   border-radius: 50%;
-  //   object-fit: cover;
-  // }
-  // button {
-  //   background: transparent;
-  //   border: transparent;
-  //   font-size: 1.2rem;
-  //   text-transform: capitalize;
-  //   letter-spacing: var(--spacing);
-  //   color: var(--clr-grey-5);
-  //   cursor: pointer;
-  // }
-// `;
 
 export default Navbar;

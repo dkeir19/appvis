@@ -15,15 +15,11 @@ const Stockinfo = () => {
     company,
     country
   } = stockInfo;
-  //const {a} = stockNews;
-
-
 
   console.log(JSON.stringify(loggedUser, null, 2) );
   
   const handleAddWatch = (e) => {
     e.preventDefault();
-    console.log('in handleaddwatch');
     addToWatch(ticker);
   };
 
@@ -32,9 +28,7 @@ const Stockinfo = () => {
     e.preventDefault();
     toggleLogin(true);
   }
-  // const handleError = (this) => {
-  //   this.parentElement.innerHTML = '';
-  // }
+
 
   if (isLoading) {
     return (
@@ -50,7 +44,6 @@ const Stockinfo = () => {
        
         <div>
           <h4>{name}</h4>
-          {/* <p>@{twitter_username || 'john doe'}</p> */}
         </div>
 
         {loggedUser  ? (
@@ -76,13 +69,12 @@ const Stockinfo = () => {
         <br/>
         <p><MdBusiness></MdBusiness>{finnhubIndustry}</p>
         <p><MdInsertChart></MdInsertChart>{ticker}</p>
-        <a href={`https://${weburl}`}>
+        <a href={`${weburl}`}>
           <MdLink></MdLink>
           {weburl}
         </a>
       </div>   
         {stockNews != 0 ? stockNews.slice(0,3).map((news, index) => {
-          // const { avatar_url: img, html_url, login } = follower;
           const {image, headline, summary, url} = news
           return (
             <div key={index}>

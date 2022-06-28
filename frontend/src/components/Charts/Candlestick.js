@@ -25,9 +25,7 @@ React.useEffect(() => {
     ctx.canvas.width = 250;
     ctx.canvas.height = 120;
 
-    var barData = getRandomData(initialDateStr, barCount);
-    function lineData() { return barData.map(d => { return { x: d.x, y: d.c} }) };
-
+   
 
     if (typeof chart22 !== "undefined") chart22.destroy();
     let chartStatus = Chart.getChart("candlestick1"); // <canvas> id
@@ -47,40 +45,7 @@ React.useEffect(() => {
         }
     });
 
-    var getRandomInt = function(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    };
-
-    function randomNumber(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    function randomBar(date, lastClose) {
-        var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-        var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-        var high = +randomNumber(Math.max(open, close), Math.max(open, close) * 1.1).toFixed(2);
-        var low = +randomNumber(Math.min(open, close) * 0.9, Math.min(open, close)).toFixed(2);
-        return {
-            x: date.valueOf(),
-            o: open,
-            h: high,
-            l: low,
-            c: close
-        };
-
-    }
-
-    function getRandomData(dateStr, count) {
-        var date = DateTime.fromRFC2822(dateStr);
-        var data = [randomBar(date, 30)];
-        while (data.length < count) {
-            date = date.plus({days: 1});
-            if (date.weekday <= 5) {
-                data.push(randomBar(date, data[data.length - 1].c));
-            }
-        }
-        return data;
-    }
+   
 
     var update = function() {
         var dataset = chart22.config.data.datasets[0];
@@ -120,27 +85,9 @@ React.useEffect(() => {
 
         // mixed charts
         var mixed = document.getElementById('mixed').value;
-        if(mixed === 'true') {
-            chart22.config.data.datasets = [
-                {
-                    label: 'CHRT - Chart.js Corporation',
-                    data: barData
-                },
-                {
-                    label: 'Close price',
-                    type: 'line',
-                    data: lineData()
-                }	
-            ]
-        }
-        else {
-            chart22.config.data.datasets = [
-                {
-                    label: 'CHRT - Chart.js Corporation',
-                    data: barData
-                }	
-            ]
-        }
+  
+
+      
 
         chart22.update();
     };
@@ -150,9 +97,7 @@ React.useEffect(() => {
 
 return (
 <Wrapper>
-
-			<canvas id="candlestick1"></canvas>
-
+	<canvas id="candlestick1"></canvas>
 </Wrapper>    
 )
 

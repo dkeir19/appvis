@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Finnhub from 'finnhub';
-
 
 const rootUrl = 'https://api.github.com';
 
 const GithubContext = React.createContext();
 
-// Provider, Consumer - GithubContext.Provider
-
 const GithubProvider = ({ children }) => {
   var constants = require('../config')
   
 
-  const [githubUser, setGithubUser] = useState(0);
-  const [repos, setRepos] = useState(0);
-  const [followers, setFollowers] = useState(0);
   // request loading
   const [requests, setRequests] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +25,7 @@ const GithubProvider = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState(0)
   const [loginError, setLoginError] = useState('')
 
-  const state =  [ ['AAPL', 'APPLE INC', 'https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png'], ['NVDA', 'NVIDIA CORP', 'https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NVDA.png']  ];
+  const state =  [];
 
   const [watchStocks, setWatchStocks] = useState( state  );
   const [watchStocks2, setWatchStocks2] = useState( 0  );
@@ -63,8 +56,6 @@ const GithubProvider = ({ children }) => {
       : setLoginError(error.message)
     }
 
-    // const res = await axios.get('/api/current_user');
-    // const user = res.data;
   }
 
 
@@ -76,7 +67,6 @@ const GithubProvider = ({ children }) => {
 
     // get stockinfo
     const stockDetails = [];
-
     
     const thestocks = stocks.map( item => {
 
@@ -107,15 +97,15 @@ const GithubProvider = ({ children }) => {
 
 
   Promise.allSettled(thestocks)
-  .then(responses => {
+    .then(responses => {
 
-    for(let response of responses) {
-      stockDetails.push(response.value);
-    }
-    
-    setWatchStocks2(stockDetails);
-    localStorage.setItem("userWatchlist", JSON.stringify(stockDetails));
-  })
+      for(let response of responses) {
+        stockDetails.push(response.value);
+      }
+      
+      setWatchStocks2(stockDetails);
+      localStorage.setItem("userWatchlist", JSON.stringify(stockDetails));
+    })
 
     
   }
@@ -161,14 +151,11 @@ const GithubProvider = ({ children }) => {
     let nowminus14 = new Date(nowdate);
     nowminus14=new Date(nowminus14.setDate(-30));
 
-    //const date1=new Date('2022.04.01') 
     const date1= parseInt((nowminus14.getTime() / 1000).toFixed(0))
     const date2= parseInt((nowdate.getTime() / 1000).toFixed(0))
 
 
 
-    // const date1= parseInt((new Date('2022.04.01').getTime() / 1000).toFixed(0))
-    // const date2= parseInt((new Date('2022.04.25').getTime() / 1000).toFixed(0))
 
     var getDaysArray = function(start, end) {
       for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
@@ -176,9 +163,6 @@ const GithubProvider = ({ children }) => {
       }
       return arr;
     };
-    const daysArray=getDaysArray("2012-08-10","2022-04-12")
-    // console.log('got stock');
-    // console.log(JSON.stringify(daysArray, null, 2) );
 
     // Stock candles
     console.log({stock}.stock);
@@ -399,52 +383,6 @@ const GithubProvider = ({ children }) => {
   };
 
 
-  const searchGithubUser = async (user) => {
-    toggleError();
-    //setIsLoading(true);
-    const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
-      console.log(err)
-    );
-    if (response) {
-      setGithubUser(response.data);
-      const { login, followers_url } = response.data;
-
-      await Promise.allSettled([
-        axios(`${rootUrl}/users/${login}/repos?per_page=100`),
-        axios(`${followers_url}?per_page=100`),
-      ])
-        .then((results) => {
-          const [repos, followers] = results;
-          const status = 'fulfilled';
-          if (repos.status === status) {
-            setRepos(repos.value.data);
-          }
-          if (followers.status === status) {
-            setFollowers(followers.value.data);
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
-      toggleError(true, 'there is no user with that name');
-    }
-    checkRequests();
-    //setIsLoading(false);
-  };
-
-  //  check rate
-  const checkRequests = () => {
-    axios(`${rootUrl}/rate_limit`)
-      .then(({ data }) => {
-        let {
-          rate: { remaining },
-        } = data;
-        setRequests(remaining);
-        if (remaining === 0) {
-          toggleError(true, 'sorry, you have exceeded your hourly rate limit!');
-        }
-      })
-      .catch((err) => console.log(err));
-  };
   function toggleError(show = false, msg = '') {
     setError({ show, msg });
   }
@@ -453,22 +391,13 @@ const GithubProvider = ({ children }) => {
   useEffect(() => {
     searchStock('AAPL');
   }, []);
-  // error
-  // useEffect(checkRequests, []);
-  //get initial user
-  // useEffect(() => {
-  //   searchGithubUser('john-smilga');
-  // }, []);
+
   return (
     <GithubContext.Provider
       value={{
-        githubUser,
-        repos,
-        followers,
         requests,
         error,
         searchStock,
-        searchGithubUser,
         loggedUser,
         login,
         loginError,

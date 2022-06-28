@@ -130,14 +130,6 @@ const Treemap = (stockName) => {
                           spacing: 2,
                           backgroundColor: function(context,raw) {
 
-                            // if (context.type !== 'data') {
-                            //     return color('blue').rgbString();
-                            // }
-
-                            // if(context.raw._data.children[context.dataIndex][1]>0)
-                            //     return color('green').rgbString();
-                            // else   
-                            //     return color('red').rgbString();
                             
                             if(typeof context.dataIndex!=='undefined' && context.dataset.data !=='undefined' &&
                             typeof context.dataset.data[context.dataIndex].gs !=='undefined') {
@@ -178,11 +170,7 @@ const Treemap = (stockName) => {
                                 }
                             }
                             return color('white').rgbString();
-                            // const index = context.dataIndex;
-                            // const value = context.dataset.data[index];
-                            // return value < 0 ? 'red' :  // draw negative values in red
-                            //     index % 2 ? 'blue' :    // else, alternate values in blue and green
-                            //     'green';
+
                         },
                           labels: {
                               display: true,

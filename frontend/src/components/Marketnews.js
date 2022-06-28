@@ -12,7 +12,6 @@ const Marketnews = () => {
 
     {marketNews? (
                    marketNews != 0 ? marketNews.slice(0,5).map((news, index) => {
-                    // const { avatar_url: img, html_url, login } = follower;
                     const { category, datetime, headline, image, source, summary, url } = news;
           
                     return (

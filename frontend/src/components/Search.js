@@ -27,27 +27,21 @@ const Search = () => {
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
             <MdSearch />
-            {/* <input
-              type='text'
-              placeholder='enter Stock ticker (ex. TSLA)'
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-            /> */}
             <Autocomplete
-        inputProps={{'placeholder': 'Enter stock', 'style': {width: '100%'}  }}
-        wrapperStyle={{display: 'block'}}
-        getItemValue={(item) => item.ticker}
-        items={constants.companiesExtended2}
-        shouldItemRender={(item, value) => item.ticker.toLowerCase().indexOf(value.toLowerCase()) > -1}
-        renderItem={(item, isHighlighted) =>
-          <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-            {item.ticker} : {item.name} : {item.sector}
-          </div>
-        }
-        value={searchEntry}
-        onChange={(e) => setSearchEntry(e.target.value)}
-        onSelect={(val) => setSearchEntry(val)}
-      />
+              inputProps={{'placeholder': 'Enter stock', 'style': {width: '100%'}  }}
+              wrapperStyle={{display: 'block'}}
+              getItemValue={(item) => item.ticker}
+              items={constants.companiesExtended2}
+              shouldItemRender={(item, value) => item.ticker.toLowerCase().indexOf(value.toLowerCase()) > -1}
+              renderItem={(item, isHighlighted) =>
+                <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+                  {item.ticker} : {item.name} : {item.sector}
+                </div>
+              }
+              value={searchEntry}
+              onChange={(e) => setSearchEntry(e.target.value)}
+              onSelect={(val) => setSearchEntry(val)}
+            />
             {requests > 0 && !isLoading && (
               <button type='submit'>search</button>
             )}
